@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Request Additional Credits{% endblock %}
+
+{% block content %}
+    <div class="credit-request-container">
+        <h2 class="heading">Request Additional Credits</h2>
+        <p class="description">Need extra credits? Submit your request, and we’ll process it as soon as possible.</p>
+
+        <form method="POST" class="credit-form">
+            <button type="submit" class="btn btn-primary">Request Credits</button>
+        </form>
+
+        <p class="back-link">
+            <a href="{{ url_for('profile') }}" class="btn btn-secondary">Back to Profile</a>
+        </p>
+    </div>
+
+    <style>
+        .credit-request-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .heading {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .credit-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            transition: 0.3s;
+        }
+        .credit-form button:hover {
+            background: #0056b3;
+        }
+        .back-link {
+            margin-top: 15px;
+        }
+        .back-link a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}

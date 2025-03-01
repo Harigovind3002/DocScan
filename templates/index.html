@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Scanning System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #0056b3;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffdd57;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero .btn {
+            background: #ffffff;
+            color: #333;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero .btn:hover {
+            background: #007BFF;
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card {
+            text-align: center;
+            max-width: 300px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #007BFF;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 50px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Document Scanning System</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a>
+        {% if 'username' in session %}
+            <a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> Profile</a>
+            <a href="{{ url_for('upload') }}"><i class="fas fa-upload"></i> Upload</a>
+            {% if session.get('is_admin') %}
+                <a href="{{ url_for('admin_dashboard') }}" class="admin-link"><i class="fas fa-tools"></i> Admin</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i> Register</a>
+        {% endif %}
+
+        <a href="{{ url_for('admin_login') }}"><i class="fas fa-cog"></i> Admin</a> <!-- Admin symbol -->
+        <a href="#features"><i class="fas fa-star"></i> Features</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+    </nav>
+    <div class="hero">
+        <h1>Welcome to the DocScan</h1>
+        <p>Scan, match, and manage your documents with ease. Get started today!</p>
+        <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+    </div>
+    <div id="features" class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-upload"></i>
+            </div>
+            <h2>Document Upload</h2>
+            <p>Upload your documents and let our system scan and match them for you.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-coins"></i>
+            </div>
+            <h2>Credit System</h2>
+            <p>Each user gets 20 free scans per day. Request more credits if needed.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h2>AI-Powered Matching</h2>
+            <p>Use advanced AI to find similar documents with high accuracy.</p>
+        </div>
+    </div>
+    <div id="about" class="about">
+        <h2>About Us</h2>
+        <p>We provide a state-of-the-art document scanning and matching system to help you manage your documents efficiently.</p>
+    </div>
+    <footer>
+        <p>Empowering seamless document management since 2024.</p>
+    </footer>
+</body>
+</html>

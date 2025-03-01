@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .welcome-message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .credits-info {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        .credits-info span {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .scans-section {
+            margin-top: 30px;
+        }
+        .scans-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .scans-list li {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .scans-list li:hover {
+            background-color: #e9ecef;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+
+    <div class="profile-container">
+        <h2>Profile</h2>
+
+        <!-- Welcome Message -->
+        <div class="welcome-message">
+            Welcome back, <strong>{{ user.username }}</strong>!
+        </div>
+
+        <!-- Credits Information -->
+        <div class="credits-info">
+            Your current credits: <span>{{ user.credits }}</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div>
+            <a href="{{ url_for('upload') }}" class="btn btn-primary">Upload Document</a>
+            <a href="{{ url_for('request_credits') }}" class="btn btn-success">Request Credits</a>
+        </div>
+
+        <!-- Scans Section -->
+        <div class="scans-section">
+            <h3>Your Scans</h3>
+            {% if scans %}
+                <ul class="scans-list">
+                    {% for scan in scans %}
+                        <li>
+                            <strong>{{ scan.original_name }}</strong> (Uploaded on {{ scan.upload_date }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No scans found. Upload your first document to get started!</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

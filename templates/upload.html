@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Document{% endblock %}
+
+{% block content %}
+    <div class="upload-container">
+        <h2 class="heading">Upload Document</h2>
+        <p class="description">Select a file from your device and upload it securely.</p>
+
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="file" class="file-input" required>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+
+        <p class="back-link">
+            <a href="{{ url_for('profile') }}" class="btn btn-secondary">Back to Profile</a>
+        </p>
+    </div>
+
+    <style>
+        .upload-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .heading {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .file-input {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+        }
+        .upload-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            transition: 0.3s;
+        }
+        .upload-form button:hover {
+            background: #0056b3;
+        }
+        .back-link {
+            margin-top: 15px;
+        }
+        .back-link a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
